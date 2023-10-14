@@ -16,6 +16,16 @@ pub enum TokenKind {
 
     Assign,
     Plus,
+    Minus,
+    Bang,
+    Asterisk,
+    Slash,
+
+    Lt,
+    Gt,
+
+    Eq,
+    NotEq,
 
     Comma,
     Semicolon,
@@ -27,6 +37,11 @@ pub enum TokenKind {
 
     Function,
     Let,
+    True,
+    False,
+    If,
+    Else,
+    Return,
 }
 
 impl Display for TokenKind {
@@ -38,6 +53,14 @@ impl Display for TokenKind {
             TokenKind::Int => "Int",
             TokenKind::Assign => "=",
             TokenKind::Plus => "+",
+            TokenKind::Minus => "-",
+            TokenKind::Bang => "!",
+            TokenKind::Asterisk => "*",
+            TokenKind::Slash => "/",
+            TokenKind::Lt => "<",
+            TokenKind::Gt => ">",
+            TokenKind::Eq => "==",
+            TokenKind::NotEq => "!=",
             TokenKind::Comma => ",",
             TokenKind::Semicolon => ";",
             TokenKind::LParen => "(",
@@ -46,7 +69,25 @@ impl Display for TokenKind {
             TokenKind::RBrace => "}",
             TokenKind::Function => "fn",
             TokenKind::Let => "let",
+            TokenKind::True => "true",
+            TokenKind::False => "false",
+            TokenKind::If => "if",
+            TokenKind::Else => "else",
+            TokenKind::Return => "return",
         };
         write!(f, "{}", s)
+    }
+}
+
+pub fn lookup_ident(ident: &str) -> TokenKind {
+    match ident {
+        "fn" => TokenKind::Function,
+        "let" => TokenKind::Let,
+        "true" => TokenKind::True,
+        "false" => TokenKind::False,
+        "if" => TokenKind::If,
+        "else" => TokenKind::Else,
+        "return" => TokenKind::Return,
+        _ => TokenKind::Ident,
     }
 }
