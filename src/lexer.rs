@@ -31,7 +31,7 @@ impl Lexer {
         self.read_position += 1;
     }
 
-    fn next_token(&mut self) -> Token {
+    pub(crate) fn next_token(&mut self) -> Token {
         self.skip_whitespace();
         let token = match self.ch {
             '=' => {
@@ -84,7 +84,9 @@ impl Lexer {
                         literal,
                     }
                 } else {
-                    Lexer::new_token(TokenKind::Illegal, self.ch)
+                    let char = self.ch;
+                    self.read_char();
+                    Lexer::new_token(TokenKind::Illegal, char)
                 }
             }
         };
